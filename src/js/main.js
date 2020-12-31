@@ -66,8 +66,8 @@ $(function () {
 
   $("form").submit(function (e) {
     e.preventDefault();
-    var username = $("#fullname").val();
-    var testimony = $("#testimony").val();
+    var username = "";
+    var testimony = "";
     // Move cropped image data to hidden input
     var imageData = $(".image-editor").cropit("export", {
       type: "image/jpeg",
@@ -79,7 +79,7 @@ $(function () {
     button.attr("disabled", "disabled").html("...processing");
 
     // x, y, width, height
-    const picData = [315, 174, 459, 513];
+    const picData = [237, 28, 610, 610];
     // name, y, x
     const nameData = [`- ${username}`, 868, 331, testimony];
     // const nameData = [username + ",", 1295, 685, ministryName];
@@ -96,7 +96,7 @@ $(function () {
             <div class="img-dp">
               <img id="dp_result" src=${url} title="Your DP"/>
               <br>
-              <a class="download-dp" href="${url}" download="SS_DP_${username.replace(/\./g, "")}">Download Image</a>
+              <a class="download-dp" href="${url}" download="BGT_DP">Download Image</a>
               <br>
             </div>
             
@@ -211,7 +211,7 @@ $(function () {
       };
 
     var userImg = loadImage(imageUrl);
-    var frameImg = loadImage("./src/img/firstFrame.jpg");
+    var frameImg = loadImage("./src/img/firstFrame.png");
 
     function loadImage(src) {
       var img = new Image();
@@ -234,21 +234,72 @@ $(function () {
 
       ctx = canvas.getContext("2d");
 
-      //Write user name
+      // //Write user name
+      // ctx.textBaseline = "top";
+      // ctx.textAlign = "center";
+      // ctx.font = "63px Autography";
+      // ctx.fillStyle = "#fd6003";
+      // var canvasText = name[0];
+      // ctx.fillText(canvasText, name[2] + 209, name[1]);
+      // // ctx.renderText(name[3], name[2], name[1], 1);
+
+      // //Write testimony
+      // ctx.font = "38px Poppins-SemiBold";
+      // ctx.fillStyle = "#060c12";
+      // wrapText(ctx, name[3], 540, 709, 30, 50, 0);
+
+      //Draw Overlay
+      ctx.strokeStyle = "#10132f";
+      ctx.fillStyle = "#10132f";
+      roundRect(ctx, 324, 608, 432, 60, 33, true, false);
+
+      //Write on Overlay
       ctx.textBaseline = "top";
       ctx.textAlign = "center";
-      ctx.font = "63px Autography";
-      ctx.fillStyle = "#fd6003";
-      var canvasText = name[0];
-      ctx.fillText(canvasText, name[2] + 209, name[1]);
-      // ctx.renderText(name[3], name[2], name[1], 1);
-
-      //Write testimony
-      ctx.font = "38px Poppins-SemiBold";
-      ctx.fillStyle = "#060c12";
-      wrapText(ctx, name[3], 540, 709, 30, 50, 0);
+      ctx.font = "48px Amperzand";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText("I will be streaming", 540, 614);
 
       cb(canvas.toDataURL("image/jpeg", 1.0));
+    }
+  }
+
+  function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+    if (typeof stroke === "undefined") {
+      stroke = true;
+    }
+    if (typeof radius === "undefined") {
+      radius = 5;
+    }
+    if (typeof radius === "number") {
+      radius = { tl: radius, tr: radius, br: radius, bl: radius };
+    } else {
+      var defaultRadius = { tl: 0, tr: 0, br: 0, bl: 0 };
+      for (var side in defaultRadius) {
+        radius[side] = radius[side] || defaultRadius[side];
+      }
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(
+      x + width,
+      y + height,
+      x + width - radius.br,
+      y + height
+    );
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+    if (fill) {
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.stroke();
     }
   }
 
@@ -300,19 +351,6 @@ $(function () {
     }
     context.fillText(line, x, y);
   }
-
-  // var canvas = document.getElementById('myCanvas');
-  // var context = canvas.getContext('2d');
-  // var maxWidth = 400;
-  // var lineHeight = 24;
-  // var x = (canvas.width - maxWidth) / 2;
-  // var y = 60;
-  // var text = 'All the world\'s a stage, and all the men and women merely players. They have their exits and their entrances; And one man in his time plays many parts.';
-
-  // context.font = '15pt Calibri';
-  // context.fillStyle = '#333';
-
-  // wrapText(context, text, x, y, maxWidth, lineHeight, 0);
 
   function navigateTo(view, temp = "") {
     switch (view) {

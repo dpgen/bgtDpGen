@@ -540,7 +540,7 @@ footer .social {
   border: dashed 1px;
   border-radius: 3px;
   margin-top: 7px;
-  width: 224px;
+  width: 250px;
   margin-left: 20%;
   height: 250px;
 }
@@ -654,7 +654,7 @@ button[type="submit"] {
   }
   .cropit-preview {
     width: 260px;
-    height: 291px;
+    height: 260px;
     margin-left: 5%;
   }
   .arrow-back {
@@ -681,7 +681,7 @@ button[type="submit"] {
   }
   .cropit-preview {
     width: 225px;
-    height: 252px;
+    height: 225px;
     margin-left: 5%;
   }
   .under p {
@@ -781,16 +781,23 @@ button[type="submit"] {
   src: url("../fonts/SmoothStone/SmoothStone-Regular.ttf");
 }
 
-/* SmoothStone */
+/* Autography */
 /* Regular */
 @font-face {
   font-family: "Autography";
   src: url("../fonts/autography/Autography.otf");
 }
 
-/* SmoothStone */
-/* Regular */
+/* Poppins */
+/* SemiBold */
 @font-face {
   font-family: "Poppins-SemiBold";
   src: url("../fonts/Poppins/Poppins-SemiBold.ttf");
+}
+
+/* Amperzand */
+/* Regular */
+@font-face {
+  font-family: "Amperzand";
+  src: url("../fonts/amperzand/Amperzand.ttf");
 }
